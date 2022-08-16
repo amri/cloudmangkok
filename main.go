@@ -74,6 +74,7 @@ func runningAway(me PlayerState) string {
 			isRunning = false
 		}
 	}
+	prevRunningAction = action
 	return action
 }
 

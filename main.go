@@ -42,9 +42,23 @@ func handler(w http.ResponseWriter, req *http.Request) {
 }
 
 func play(input ArenaUpdate) (response string) {
-	log.Printf("IN: %#v", input)
+	me := input.Arena.State["https://radiation70-zaiqduddka-uc.a.run.app"]
 
-	commands := []string{"F", "R", "L", "T"}
-	rand := rand2.Intn(4)
-	return commands[rand]
+	//throw
+	//turn
+	if prevAction == "R" {
+		prevAction = "T"
+	} else {
+		prevAction = "R"
+	}
+
+	log.Println("")
+	log.Printf("IN: %#v\n", input)
+	log.Printf("WHERE AM I: %#v\n", me)
+	log.Printf("DOING: %s", prevAction)
+	log.Println("")
+
+	//commands := []string{"F", "R", "L", "T"}
+	//rand := rand2.Intn(4)
+	return prevAction
 }

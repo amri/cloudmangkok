@@ -60,6 +60,26 @@ func play(input ArenaUpdate) (response string) {
 		}
 	}
 
+	if me.Y == 0 {
+		if me.Direction == "N" {
+			return "R"
+		} else if me.Direction == "E" {
+			return "R"
+		} else if me.Direction == "W" {
+			return "L"
+		}
+	}
+
+	if me.Y == arenaSize[1]-1 {
+		if me.Direction == "S" {
+			return "L"
+		} else if me.Direction == "E" {
+			return "L"
+		} else if me.Direction == "W" {
+			return "R"
+		}
+	}
+
 	//X:X DIRECTION should be WEST
 	if me.X == arenaSize[0]-1 {
 		if me.Direction == "N" {

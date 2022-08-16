@@ -172,18 +172,32 @@ func play(input ArenaUpdate) (response string) {
 		return action
 	} else {
 		log.Printf("[THROWING] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
-		isThrowing = true
-		throwingCounter = 3
+		otherPlayers := input.Arena.State
 
-		return "T"
+		for playerName := range otherPlayers {
+			if me.Direction == "N" {
+				if (otherPlayers[playerName].X)+1 == me.X || (otherPlayers[playerName].X+2) == me.X {
+					return "T"
+				}
+				//move away
+			} else if me.Direction == "E" {
+				if (otherPlayers[playerName].Y)-1 == me.X || (otherPlayers[playerName].Y-2) == me.Y {
+					return "T"
+				}
+			} else if me.Direction == "W" {
+				if (otherPlayers[playerName].Y)+1 == me.X || (otherPlayers[playerName].Y+2) == me.Y {
+					return "T"
+				}
+			} else if me.Direction == "S" {
+				if (otherPlayers[playerName].X)-1 == me.X || (otherPlayers[playerName].X-2) == me.X {
+					return "T"
+				}
+			}
+		}
+		var commands = []string{"F", "R", "L"}
+		var rand = rand2.Intn(3)
+		var action = commands[rand]
+		return action
 	}
 
-	log.Println("")
-	// log.Printf("IN: %#v\n", input)
-	// log.Printf("DOING: %s", prevAction)
-	log.Println("")
-
-	commands := []string{"F", "R", "L", "T"}
-	rand := rand2.Intn(4)
-	return commands[rand]
 }

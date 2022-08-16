@@ -45,6 +45,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 var isThrowing = false
 var throwingCounter int
+var prevScore int
 
 func throwing(me PlayerState) string {
 	var action string
@@ -67,8 +68,10 @@ func throwing(me PlayerState) string {
 	return action
 }
 
-var retryThrow = false
+var prevPrevScore int
+var prevScore int
 
+var retryThrow = false
 var isRunning = false
 var runningCounter int
 var prevRunningAction string
@@ -106,8 +109,11 @@ func runningAway(me PlayerState) string {
 
 func play(input ArenaUpdate) (response string) {
 	me := input.Arena.State["https://radiation70-zaiqduddka-uc.a.run.app"]
-
+	prevPrevScore = prevScore
+	prevScore = me.Score
+	log.Printf("Scores : %d > %d \n", prevPrevScore, prevScore)
 	arenaSize := input.Arena.Dimensions
+
 	if retryThrow {
 		retryThrow = false
 		log.Println("THROWING again")

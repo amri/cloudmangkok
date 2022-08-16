@@ -43,6 +43,40 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprint(w, resp)
 }
 
+var isRunning = false
+var runningCounter int
+var prevRunningAction string
+
+func runningAway(me PlayerState) string {
+	var action string
+
+	for isRunning {
+		if runningCounter > 0 {
+			if prevRunningAction == "R" || prevRunningAction == "L" {
+				action = "F"
+			} else {
+				var commands = []string{"F", "R", "L"}
+				var rand = rand2.Intn(3)
+				action = commands[rand]
+			}
+			log.Printf("RUNNING %s\n", action)
+
+			runningCounter--
+		} else {
+			if prevRunningAction == "R" || prevRunningAction == "L" {
+				action = "F"
+			} else {
+				var commands = []string{"F", "R", "L"}
+				var rand = rand2.Intn(3)
+				action = commands[rand]
+			}
+			log.Printf("RUNNING %s\n", action)
+			isRunning = false
+		}
+	}
+	return action
+}
+
 func play(input ArenaUpdate) (response string) {
 	me := input.Arena.State["https://radiation70-zaiqduddka-uc.a.run.app"]
 
@@ -91,8 +125,16 @@ func play(input ArenaUpdate) (response string) {
 		}
 	}
 
+	runningAway(me)
+
+	//look for nearby
+
 	if me.WasHit {
 		log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
+
+		isRunning = true
+		runningCounter = 2
+		runningAway(me)
 
 		var commands = []string{"F", "R", "L"}
 		var rand = rand2.Intn(3)

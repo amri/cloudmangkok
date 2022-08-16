@@ -45,7 +45,6 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 var isThrowing = false
 var throwingCounter int
-var prevScore int
 
 func throwing(me PlayerState) string {
 	var action string

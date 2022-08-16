@@ -58,7 +58,7 @@ func play(input ArenaUpdate) (response string) {
 	log.Printf("DOING: %s", prevAction)
 	log.Println("")
 
-	//commands := []string{"F", "R", "L", "T"}
-	//rand := rand2.Intn(4)
-	return prevAction
+	commands := []string{"F", "R", "L", "T"}
+	rand := rand2.Intn(4)
+	return commands[rand]
 }

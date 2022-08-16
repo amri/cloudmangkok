@@ -67,6 +67,8 @@ func throwing(me PlayerState) string {
 	return action
 }
 
+var retryThrow = false
+
 var isRunning = false
 var runningCounter int
 var prevRunningAction string
@@ -106,6 +108,10 @@ func play(input ArenaUpdate) (response string) {
 	me := input.Arena.State["https://radiation70-zaiqduddka-uc.a.run.app"]
 
 	arenaSize := input.Arena.Dimensions
+	if retryThrow {
+		retryThrow = false
+		return "T"
+	}
 
 	//CORRECTION
 	//X:0 DIRECTION should be east
@@ -179,6 +185,7 @@ func play(input ArenaUpdate) (response string) {
 				if otherPlayers[playerName].Y == me.Y {
 					if (otherPlayers[playerName].X)+1 == me.X || (otherPlayers[playerName].X+2) == me.X {
 						log.Printf("FOUND other PLAYER, Throwing\n")
+						retryThrow = true
 						return "T"
 					}
 				}
@@ -187,6 +194,8 @@ func play(input ArenaUpdate) (response string) {
 
 					if (otherPlayers[playerName].Y)-1 == me.X || (otherPlayers[playerName].Y-2) == me.Y {
 						log.Printf("FOUND other PLAYER, Throwing\n")
+						retryThrow = true
+
 						return "T"
 					}
 				}
@@ -194,7 +203,7 @@ func play(input ArenaUpdate) (response string) {
 				if otherPlayers[playerName].X == me.X {
 					if (otherPlayers[playerName].Y)+1 == me.X || (otherPlayers[playerName].Y+2) == me.Y {
 						log.Printf("FOUND other PLAYER, Throwing\n")
-
+						retryThrow = true
 						return "T"
 					}
 				}
@@ -202,7 +211,7 @@ func play(input ArenaUpdate) (response string) {
 				if otherPlayers[playerName].Y == me.Y {
 					if (otherPlayers[playerName].X)-1 == me.X || (otherPlayers[playerName].X-2) == me.X {
 						log.Printf("FOUND other PLAYER, Throwing\n")
-
+						retryThrow = true
 						return "T"
 					}
 				}

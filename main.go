@@ -72,11 +72,12 @@ func play(input ArenaUpdate) (response string) {
 	}
 
 	if me.WasHit {
-		//var commands = []string{"F", "R", "L"}
-		//var rand = rand2.Intn(3)
 		log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
 
-		return "T"
+		var commands = []string{"F", "R", "L"}
+		var rand = rand2.Intn(3)
+
+		return commands[rand]
 	} else {
 		log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
 

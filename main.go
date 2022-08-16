@@ -47,15 +47,17 @@ func play(input ArenaUpdate) (response string) {
 	me := input.Arena.State["https://radiation70-zaiqduddka-uc.a.run.app"]
 
 	if me.WasHit {
-		var commands = []string{"F", "R", "L"}
-		var rand = rand2.Intn(3)
-		return commands[rand]
+		//var commands = []string{"F", "R", "L"}
+		//var rand = rand2.Intn(3)
+		return "T"
+	} else {
+		return "T"
 	}
 
 	log.Println("")
-	log.Printf("IN: %#v\n", input)
+	// log.Printf("IN: %#v\n", input)
 	log.Printf("WHERE AM I: %#v\n", me)
-	log.Printf("DOING: %s", prevAction)
+	// log.Printf("DOING: %s", prevAction)
 	log.Println("")
 
 	commands := []string{"F", "R", "L", "T"}

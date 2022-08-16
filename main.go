@@ -111,6 +111,7 @@ func play(input ArenaUpdate) (response string) {
 	prevPrevScore = prevScore
 	prevScore = me.Score
 	log.Printf("Scores : %d > %d \n", prevPrevScore, prevScore)
+
 	arenaSize := input.Arena.Dimensions
 
 	if retryThrow {
@@ -164,9 +165,15 @@ func play(input ArenaUpdate) (response string) {
 
 	if isRunning {
 		return runningAway(me)
+
 	}
 	//look for nearby
 
+	if prevScore > prevPrevScore {
+		retryThrow = true
+		log.Println("THROWING again")
+		return "T"
+	}
 	if me.WasHit {
 		log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
 

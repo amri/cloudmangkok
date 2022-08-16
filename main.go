@@ -175,7 +175,7 @@ func play(input ArenaUpdate) (response string) {
 		return "T"
 	} else {
 
-		var commands = []string{"F", "R", "L"}
+		var commands = []string{"F", "R", "L", "T"}
 		var rand = rand2.Intn(3)
 		var action = commands[rand]
 		log.Printf("TURNING to %s", action)

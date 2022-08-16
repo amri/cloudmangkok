@@ -201,7 +201,7 @@ func play(input ArenaUpdate) (response string) {
 		log.Println("THROWING again")
 		return "T"
 	} else {
-		TurnAndThrow()
+		return TurnAndThrow()
 	}
 
 	if me.WasHit {

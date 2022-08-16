@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	rand2 "math/rand"
 	"net/http"
 	"os"
 )
+
 var prevAction string
 func main() {
 	port := "8080"

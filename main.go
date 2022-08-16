@@ -176,21 +176,35 @@ func play(input ArenaUpdate) (response string) {
 
 		for playerName := range otherPlayers {
 			if me.Direction == "N" {
-				if (otherPlayers[playerName].X)+1 == me.X || (otherPlayers[playerName].X+2) == me.X {
-					return "T"
+				if otherPlayers[playerName].Y == me.Y {
+					if (otherPlayers[playerName].X)+1 == me.X || (otherPlayers[playerName].X+2) == me.X {
+						log.Printf("FOUND other PLAYER, Throwing\n")
+						return "T"
+					}
 				}
-				//move away
 			} else if me.Direction == "E" {
-				if (otherPlayers[playerName].Y)-1 == me.X || (otherPlayers[playerName].Y-2) == me.Y {
-					return "T"
+				if otherPlayers[playerName].X == me.X {
+
+					if (otherPlayers[playerName].Y)-1 == me.X || (otherPlayers[playerName].Y-2) == me.Y {
+						log.Printf("FOUND other PLAYER, Throwing\n")
+						return "T"
+					}
 				}
 			} else if me.Direction == "W" {
-				if (otherPlayers[playerName].Y)+1 == me.X || (otherPlayers[playerName].Y+2) == me.Y {
-					return "T"
+				if otherPlayers[playerName].X == me.X {
+					if (otherPlayers[playerName].Y)+1 == me.X || (otherPlayers[playerName].Y+2) == me.Y {
+						log.Printf("FOUND other PLAYER, Throwing\n")
+
+						return "T"
+					}
 				}
 			} else if me.Direction == "S" {
-				if (otherPlayers[playerName].X)-1 == me.X || (otherPlayers[playerName].X-2) == me.X {
-					return "T"
+				if otherPlayers[playerName].Y == me.Y {
+					if (otherPlayers[playerName].X)-1 == me.X || (otherPlayers[playerName].X-2) == me.X {
+						log.Printf("FOUND other PLAYER, Throwing\n")
+
+						return "T"
+					}
 				}
 			}
 		}

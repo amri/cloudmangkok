@@ -46,6 +46,31 @@ func handler(w http.ResponseWriter, req *http.Request) {
 func play(input ArenaUpdate) (response string) {
 	me := input.Arena.State["https://radiation70-zaiqduddka-uc.a.run.app"]
 
+	arenaSize := input.Arena.Dimensions
+
+	//CORRECTION
+	//X:0 DIRECTION should be east
+	if me.X == 0 {
+		if me.Direction == "N" {
+			return "R"
+		} else if me.Direction == "S" {
+			return "L"
+		} else if me.Direction == "W" {
+			return "R"
+		}
+	}
+
+	//X:X DIRECTION should be WEST
+	if me.X == arenaSize[0]-1 {
+		if me.Direction == "N" {
+			return "L"
+		} else if me.Direction == "S" {
+			return "R"
+		} else if me.Direction == "E" {
+			return "L"
+		}
+	}
+
 	if me.WasHit {
 		//var commands = []string{"F", "R", "L"}
 		//var rand = rand2.Intn(3)

@@ -110,6 +110,7 @@ func play(input ArenaUpdate) (response string) {
 	arenaSize := input.Arena.Dimensions
 	if retryThrow {
 		retryThrow = false
+		log.Println("THROWING again")
 		return "T"
 	}
 

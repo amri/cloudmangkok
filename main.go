@@ -113,12 +113,16 @@ var commandCounter int
 func TurnAndThrow() string {
 	now := time.Now()
 	if now.Unix()%2 == 0 {
+		fmt.Printf("TURN AND [THROW]\n")
 		return "T"
 
 	} else {
+
 		var commands = []string{"F", "R", "L"}
 		var rand = rand2.Intn(3)
 		var action = commands[rand]
+		fmt.Printf("[TURN] AND THROW : %s\n", action)
+
 		return action
 	}
 

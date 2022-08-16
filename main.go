@@ -49,7 +49,7 @@ func play(input ArenaUpdate) (response string) {
 	if prevAction == "R" {
 		prevAction = "T"
 	} else {
-		prevAction = "R"
+		prevAction = "F"
 	}
 
 	log.Println("")

@@ -192,7 +192,6 @@ func play(input ArenaUpdate) (response string) {
 				}
 			} else if me.Direction == "E" {
 				if otherPlayers[playerName].X == me.X {
-
 					if (otherPlayers[playerName].Y)-1 == me.X || (otherPlayers[playerName].Y-2) == me.Y {
 						log.Printf("FOUND other PLAYER, Throwing\n")
 						retryThrow = true
@@ -218,9 +217,11 @@ func play(input ArenaUpdate) (response string) {
 				}
 			}
 		}
+
 		var commands = []string{"F", "R", "L"}
 		var rand = rand2.Intn(3)
 		var action = commands[rand]
+		log.Printf("NOT FOUND anyone, MOVING to %s\n", action)
 		return action
 	}
 

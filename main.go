@@ -10,6 +10,7 @@ import (
 )
 
 var prevAction string
+
 func main() {
 	port := "8080"
 	if v := os.Getenv("PORT"); v != "" {
@@ -51,6 +52,10 @@ func play(input ArenaUpdate) (response string) {
 		prevAction = "T"
 	} else {
 		prevAction = "F"
+	}
+
+	if me.WasHit {
+		return "L"
 	}
 
 	log.Println("")

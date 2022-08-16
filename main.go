@@ -7,6 +7,7 @@ import (
 	rand2 "math/rand"
 	"net/http"
 	"os"
+	"time"
 )
 
 var prevAction string
@@ -106,10 +107,28 @@ func runningAway(me PlayerState) string {
 	return action
 }
 
+var turnAndThrowCounter int
+var commandCounter int
+
+func TurnAndThrow() string {
+	now := time.Now()
+	if now.Unix()%2 == 0 {
+		return "T"
+
+	} else {
+		var commands = []string{"F", "R", "L"}
+		var rand = rand2.Intn(3)
+		var action = commands[rand]
+		return action
+	}
+
+}
+
 func play(input ArenaUpdate) (response string) {
 	if len(input.Input) > 0 {
 		return input.Input
 	}
+
 	me := input.Arena.State["https://radiation70-zaiqduddka-uc.a.run.app"]
 	prevPrevScore = prevScore
 	prevScore = me.Score
@@ -176,7 +195,10 @@ func play(input ArenaUpdate) (response string) {
 		retryThrow = true
 		log.Println("THROWING again")
 		return "T"
+	} else {
+		TurnAndThrow()
 	}
+
 	if me.WasHit {
 		log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
 

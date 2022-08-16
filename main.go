@@ -96,10 +96,12 @@ func play(input ArenaUpdate) (response string) {
 
 		var commands = []string{"F", "R", "L"}
 		var rand = rand2.Intn(3)
+		var action = commands[rand]
+		log.Printf("MOVING to %s", action)
 
-		return commands[rand]
+		return action
 	} else {
-		log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
+		log.Printf("[THROWING] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
 
 		return "T"
 	}

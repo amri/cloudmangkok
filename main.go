@@ -175,7 +175,7 @@ func play(input ArenaUpdate) (response string) {
 		isThrowing = true
 		throwingCounter = 3
 
-		return throwing(me)
+		return "T"
 	}
 
 	log.Println("")

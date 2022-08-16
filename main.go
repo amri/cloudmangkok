@@ -173,6 +173,14 @@ func play(input ArenaUpdate) (response string) {
 		retryThrow = true
 		log.Println("THROWING again")
 		return "T"
+	} else {
+
+		var commands = []string{"F", "R", "L"}
+		var rand = rand2.Intn(3)
+		var action = commands[rand]
+		log.Printf("TURNING to %s", action)
+
+		return action
 	}
 	if me.WasHit {
 		log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
@@ -190,7 +198,7 @@ func play(input ArenaUpdate) (response string) {
 
 		return action
 	} else {
-		log.Printf("[THROWING] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
+		//log.Printf("[THROWING] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
 		otherPlayers := input.Arena.State
 
 		for playerName := range otherPlayers {

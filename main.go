@@ -201,25 +201,27 @@ func play(input ArenaUpdate) (response string) {
 		log.Println("THROWING again")
 		return "T"
 	} else {
-		return TurnAndThrow()
+		if me.WasHit {
+			log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
+
+			isRunning = true
+			runningCounter = 2
+			if isRunning {
+				return runningAway(me)
+			}
+
+			var commands = []string{"F", "R", "L"}
+			var rand = rand2.Intn(3)
+			var action = commands[rand]
+			log.Printf("MOVING to %s", action)
+
+			return action
+		} else {
+			return TurnAndThrow()
+		}
 	}
 
-	if me.WasHit {
-		log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
-
-		isRunning = true
-		runningCounter = 2
-		if isRunning {
-			return runningAway(me)
-		}
-
-		var commands = []string{"F", "R", "L"}
-		var rand = rand2.Intn(3)
-		var action = commands[rand]
-		log.Printf("MOVING to %s", action)
-
-		return action
-	} else {
+	{
 		//log.Printf("[THROWING] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
 		otherPlayers := input.Arena.State
 

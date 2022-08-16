@@ -43,6 +43,30 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprint(w, resp)
 }
 
+var isThrowing = false
+var throwingCounter int
+
+func throwing(me PlayerState) string {
+	var action string
+
+	for isThrowing {
+		if throwingCounter > 0 {
+			action = "T"
+		} else {
+			//move away
+			isRunning = true
+			runningCounter = 2
+			if isRunning {
+				return runningAway(me)
+			}
+			isThrowing = false
+		}
+		throwingCounter--
+	}
+	prevRunningAction = action
+	return action
+}
+
 var isRunning = false
 var runningCounter int
 var prevRunningAction string
@@ -126,8 +150,9 @@ func play(input ArenaUpdate) (response string) {
 		}
 	}
 
-	runningAway(me)
-
+	if isRunning {
+		return runningAway(me)
+	}
 	//look for nearby
 
 	if me.WasHit {
@@ -135,7 +160,9 @@ func play(input ArenaUpdate) (response string) {
 
 		isRunning = true
 		runningCounter = 2
-		runningAway(me)
+		if isRunning {
+			return runningAway(me)
+		}
 
 		var commands = []string{"F", "R", "L"}
 		var rand = rand2.Intn(3)
@@ -145,8 +172,10 @@ func play(input ArenaUpdate) (response string) {
 		return action
 	} else {
 		log.Printf("[THROWING] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
+		isThrowing = true
+		throwingCounter = 3
 
-		return "T"
+		return throwing(me)
 	}
 
 	log.Println("")

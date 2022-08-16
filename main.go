@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 )
-
+var prevAction string
 func main() {
 	port := "8080"
 	if v := os.Getenv("PORT"); v != "" {

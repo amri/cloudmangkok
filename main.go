@@ -107,6 +107,9 @@ func runningAway(me PlayerState) string {
 }
 
 func play(input ArenaUpdate) (response string) {
+	if len(input.Input) > 0 {
+		return input.Input
+	}
 	me := input.Arena.State["https://radiation70-zaiqduddka-uc.a.run.app"]
 	prevPrevScore = prevScore
 	prevScore = me.Score

@@ -10,6 +10,7 @@ type ArenaUpdate struct {
 		Dimensions []int                  `json:"dims"`
 		State      map[string]PlayerState `json:"state"`
 	} `json:"arena"`
+	Input string `json:"input"`
 }
 
 type PlayerState struct {

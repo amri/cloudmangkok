@@ -90,7 +90,6 @@ func runningAway(me PlayerState) string {
 			}
 			log.Printf("RUNNING %s\n", action)
 
-			runningCounter--
 		} else {
 			if prevRunningAction == "R" || prevRunningAction == "L" {
 				action = "F"
@@ -102,6 +101,7 @@ func runningAway(me PlayerState) string {
 			log.Printf("RUNNING %s\n", action)
 			isRunning = false
 		}
+		runningCounter--
 	}
 	prevRunningAction = action
 	return action
@@ -123,13 +123,9 @@ func TurnAndThrow() string {
 
 		return action
 	}
-
 }
 
 func play(input ArenaUpdate) (response string) {
-	if len(input.Input) > 0 {
-		return input.Input
-	}
 
 	me := input.Arena.State["https://radiation70-zaiqduddka-uc.a.run.app"]
 	prevPrevScore = prevScore
@@ -138,11 +134,11 @@ func play(input ArenaUpdate) (response string) {
 
 	arenaSize := input.Arena.Dimensions
 
-	if retryThrow {
-		retryThrow = false
-		log.Println("THROWING again")
-		return "T"
-	}
+	//if retryThrow {
+	//	retryThrow = false
+	//	log.Println("THROWING again")
+	//	return "T"
+	//}
 
 	//CORRECTION
 	//X:0 DIRECTION should be east
@@ -201,19 +197,19 @@ func play(input ArenaUpdate) (response string) {
 		if me.WasHit {
 			log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
 
-			//isRunning = true
-			//runningCounter = 2
-			//if isRunning {
-			//	return runningAway(me)
-			//}
-			//
-			//var commands = []string{"F", "R", "L"}
-			//var rand = rand2.Intn(3)
-			//var action = commands[rand]
-			//log.Printf("MOVING to %s", action)
-			//
-			//return action
-			return TurnAndThrow()
+			isRunning = true
+			runningCounter = 2
+			if isRunning {
+				return runningAway(me)
+			}
+
+			var commands = []string{"F", "R", "L"}
+			var rand = rand2.Intn(3)
+			var action = commands[rand]
+			log.Printf("MOVING to %s", action)
+
+			return action
+			//return TurnAndThrow()
 		} else {
 			return TurnAndThrow()
 		}

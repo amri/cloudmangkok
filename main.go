@@ -107,12 +107,9 @@ func runningAway(me PlayerState) string {
 	return action
 }
 
-var turnAndThrowCounter int
-var commandCounter int
-
 func TurnAndThrow() string {
 	now := time.Now()
-	if now.Unix()%2 == 0 {
+	if now.Unix()%3 > 1 {
 		log.Printf("TURN AND [THROW]\n")
 		return "T"
 
@@ -204,18 +201,19 @@ func play(input ArenaUpdate) (response string) {
 		if me.WasHit {
 			log.Printf("[HIT] WHERE AM I: x:%d y:%d, dir:%s , %#v\n", me.X, me.Y, me.Direction, me)
 
-			isRunning = true
-			runningCounter = 2
-			if isRunning {
-				return runningAway(me)
-			}
-
-			var commands = []string{"F", "R", "L"}
-			var rand = rand2.Intn(3)
-			var action = commands[rand]
-			log.Printf("MOVING to %s", action)
-
-			return action
+			//isRunning = true
+			//runningCounter = 2
+			//if isRunning {
+			//	return runningAway(me)
+			//}
+			//
+			//var commands = []string{"F", "R", "L"}
+			//var rand = rand2.Intn(3)
+			//var action = commands[rand]
+			//log.Printf("MOVING to %s", action)
+			//
+			//return action
+			return TurnAndThrow()
 		} else {
 			return TurnAndThrow()
 		}

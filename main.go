@@ -109,7 +109,7 @@ func runningAway(me PlayerState) string {
 
 func TurnAndThrow() string {
 	now := time.Now()
-	if now.Unix()%3 > 1 {
+	if now.Unix()%3 > 0 {
 		log.Printf("TURN AND [THROW]\n")
 		return "T"
 
